@@ -31,14 +31,14 @@ function HandleChange(tabId, changeInfo, tab) {
     var title = "";
     for (var i=0; i < History[tabId].length; i++) {
       var t = History[tabId][i][0]
-      if (i < History[tabId].length - 1) {
-        if (History[tabId][i][0].toLocaleDateString() != History[tabId][i+1][0].toLocaleDateString()) {
-          title += t.toLocaleDateString() + " ";
-        }
-        title += t.toLocaleTimeString() + " ";
-        title += FormatDuration(History[tabId][i][0] - History[tabId][i+1][0]) + " ";
-      } else {
-        title += t.toLocaleDateString() + " " + t.toLocaleTimeString() + " ";
+      var show_date = false;
+      if (i == History[tabId].length - 1 ||
+          (History[tabId][i][0].toLocaleDateString() != History[tabId][i+1][0].toLocaleDateString())) {
+        title += t.toLocaleDateString() + " ";
+      }
+      title += t.toLocaleTimeString() + " ";
+      if (i > 0) {
+        title += FormatDuration(History[tabId][i-1][0] - History[tabId][i][0]) + " ";
       }
       title += History[tabId][i][1] + "\n";
     }
