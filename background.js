@@ -21,7 +21,6 @@ chrome.browserAction.setBadgeBackgroundColor({ 'color': "#666" });
 
 function HandleChange(tabId, changeInfo, tab) {
   if ("url" in changeInfo) {
-    chrome.extension.getBackgroundPage().console.log("Tab changed: ", tabId, changeInfo);
     var now = new Date();
     if (!(tabId in History)) {
       History[tabId] = [];
