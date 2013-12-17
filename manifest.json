@@ -7,7 +7,7 @@
   "author": "sworley@google.com",
 
   "permissions": [
-    "tabs"  // Needed?
+    "tabs"
   ],
   "icons": { "128": "clock128.png" },
   "browser_action": {
