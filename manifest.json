@@ -21,7 +21,10 @@
     }
   },
   "background": {
-    "scripts": ["background.js"],
+    "scripts": [
+      "common.js",
+      "background.js"
+      ],
     "persistent": true
   }
 }

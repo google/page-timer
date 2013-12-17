@@ -20,22 +20,6 @@ chrome.browserAction.setTitle({ 'title': '?'});
 chrome.browserAction.setBadgeText({ 'text': '?'});
 chrome.browserAction.setBadgeBackgroundColor({ 'color': "#666" });
 
-function FormatDuration(d) {
-  var minutes = Math.floor(d / (60 * 1000));
-  var description;
-  if (minutes < 60) {
-    description = minutes + "m";
-  } else {
-    var hours = Math.floor(minutes / 60);
-    var display_minutes = minutes % 60;
-    if (display_minutes < 10) {
-      display_minutes = "0" + display_minutes;
-    }
-    description = hours + ":" + display_minutes;
-  }
-  return description;
-}
-
 function HandleChange(tabId, changeInfo, tab) {
   if ("url" in changeInfo) {
     chrome.extension.getBackgroundPage().console.log("Tab changed: ", tabId, changeInfo);
