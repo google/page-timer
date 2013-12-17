@@ -1,34 +1,51 @@
-var LastChange = {};
+var History = {};
 
 chrome.browserAction.setTitle({ 'title': '?'});
 chrome.browserAction.setBadgeText({ 'text': '?'});
 chrome.browserAction.setBadgeBackgroundColor({ 'color': "#666" });
 
+function FormatDuration(d) {
+  var minutes = Math.floor(d / (60 * 1000));
+  var description;
+  if (minutes < 60) {
+    description = minutes + "m";
+  } else {
+    var hours = Math.floor(minutes / 60);
+    var display_minutes = minutes % 60;
+    if (display_minutes < 10) {
+      display_minutes = "0" + display_minutes;
+    }
+    description = hours + ":" + display_minutes;
+  }
+  return description;
+}
+
 function HandleChange(tabId, changeInfo, tab) {
   if ("url" in changeInfo) {
     chrome.extension.getBackgroundPage().console.log("Tab changed: ", tabId, changeInfo);
     var now = new Date();
-    LastChange[tabId] = now;
-    chrome.browserAction.setTitle({ 'tabId': tabId, 'title': now.toString()});
+    if (!(tabId in History)) {
+      History[tabId] = [];
+    }
+    History[tabId].unshift([now, changeInfo.url]);
+    var title = "";
+    for (var i=0; i < History[tabId].length; i++) {
+      var t = History[tabId][i][0]
+      title += t.toLocaleDateString() + " " + t.toLocaleTimeString();
+      if (i < History[tabId].length - 1) {
+        title += " " + FormatDuration(History[tabId][i][0] - History[tabId][i+1][0]);
+      }
+      title += " " + History[tabId][i][1] + "\n";
+    }
     chrome.browserAction.setBadgeText({ 'tabId': tabId, 'text': '0m'});
+    chrome.browserAction.setTitle({ 'tabId': tabId, 'title': title});
   }
 }
 
 function UpdateBadges() {
   var now = new Date();
-  for (tabId in LastChange) {
-    var minutes = Math.floor((now - LastChange[tabId]) / (60 * 1000));
-    var description;
-    if (minutes < 60) {
-      description = minutes + "m";
-    } else {
-      var hours = Math.floor(minutes / 60);
-      var display_minutes = minutes % 60;
-      if (display_minutes < 10) {
-        display_minutes = "0" + display_minutes;
-      }
-      description = hours + ":" + display_minutes;
-    }
+  for (tabId in History) {
+    var description = FormatDuration(now - History[tabId][0][0]);
     chrome.browserAction.setBadgeText({ 'tabId': parseInt(tabId), 'text': description});
   }
 }
