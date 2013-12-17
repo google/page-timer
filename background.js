@@ -26,6 +26,9 @@ function HandleChange(tabId, changeInfo, tab) {
       History[tabId] = [];
     }
     History[tabId].unshift([now, changeInfo.url]);
+    while (History[tabId].length > 100) {
+      History[tabId].pop();
+    }
     chrome.browserAction.setBadgeText({ 'tabId': tabId, 'text': '0m'});
     chrome.browserAction.setPopup({ 'tabId': tabId, 'popup': "popup.html#tabId=" + tabId});
   }
