@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+
+  "name": "Page Timer",
+  "description": "How long have I been on this page?",
+  "version": "0.1",
+  "author": "sworley@google.com",
+
+  "permissions": [
+    "tabs"  // Needed?
+  ],
+  "icons": { "38": "clock.png" },
+  "browser_action": {
+    "default_icon": {
+      "19": "clock.png",
+      "38": "clock.png"
+    }
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  }
+}
