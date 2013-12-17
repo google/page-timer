@@ -16,7 +16,6 @@
 
 var History = {};
 
-chrome.browserAction.setTitle({ 'title': '?'});
 chrome.browserAction.setBadgeText({ 'text': '?'});
 chrome.browserAction.setBadgeBackgroundColor({ 'color': "#666" });
 
@@ -28,22 +27,8 @@ function HandleChange(tabId, changeInfo, tab) {
       History[tabId] = [];
     }
     History[tabId].unshift([now, changeInfo.url]);
-    var title = "";
-    for (var i=0; i < History[tabId].length; i++) {
-      var t = History[tabId][i][0]
-      var show_date = false;
-      if (i == History[tabId].length - 1 ||
-          (History[tabId][i][0].toLocaleDateString() != History[tabId][i+1][0].toLocaleDateString())) {
-        title += t.toLocaleDateString() + " ";
-      }
-      title += t.toLocaleTimeString() + " ";
-      if (i > 0) {
-        title += FormatDuration(History[tabId][i-1][0] - History[tabId][i][0]) + " ";
-      }
-      title += History[tabId][i][1] + "\n";
-    }
     chrome.browserAction.setBadgeText({ 'tabId': tabId, 'text': '0m'});
-    chrome.browserAction.setTitle({ 'tabId': tabId, 'title': title});
+    chrome.browserAction.setPopup({ 'tabId': tabId, 'popup': "popup.html#tabId=" + tabId});
   }
 }
 
