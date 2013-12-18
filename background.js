@@ -29,7 +29,7 @@ function HandleChange(tabId, changeInfo, tab) {
 
     var history_limit = parseInt(localStorage["history_size"]);
     if (! history_limit) {
-      history_limit = 24;
+      history_limit = 23;
     }
     while (History[tabId].length > history_limit) {
       History[tabId].pop();
