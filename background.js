@@ -40,6 +40,15 @@ function HandleChange(tabId, changeInfo, tab) {
   }
 }
 
+function HandleRemove(tabId, removeInfo) {
+  delete History[tabId];
+}
+
+function HandleReplace(addedTabId, removedTabId) {
+  delete History[removedTabId];
+}
+
+
 function UpdateBadges() {
   var now = new Date();
   for (tabId in History) {
@@ -51,3 +60,5 @@ function UpdateBadges() {
 setInterval(UpdateBadges, 3000);
 
 chrome.tabs.onUpdated.addListener(HandleChange);
+chrome.tabs.onRemoved.addListener(HandleRemove);
+chrome.tabs.onReplaced.addListener(HandleReplace);
