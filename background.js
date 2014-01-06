@@ -23,7 +23,11 @@ function Update(t, tabId, url) {
   if (!url) {
     return;
   }
-  if (!(tabId in History)) {
+  if (tabId in History) {
+    if (url == History[tabId][0][1]) {
+      return;
+    }
+  } else {
     History[tabId] = [];
   }
   History[tabId].unshift([t, url]);
