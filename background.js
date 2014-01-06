@@ -19,7 +19,7 @@ var History = {};
 chrome.browserAction.setBadgeText({ 'text': '?'});
 chrome.browserAction.setBadgeBackgroundColor({ 'color': "#777" });
 
-function HandleChange(tabId, changeInfo, tab) {
+function HandleUpdate(tabId, changeInfo, tab) {
   if ("url" in changeInfo) {
     var now = new Date();
     if (!(tabId in History)) {
@@ -59,6 +59,6 @@ function UpdateBadges() {
 
 setInterval(UpdateBadges, 3000);
 
-chrome.tabs.onUpdated.addListener(HandleChange);
+chrome.tabs.onUpdated.addListener(HandleUpdate);
 chrome.tabs.onRemoved.addListener(HandleRemove);
 chrome.tabs.onReplaced.addListener(HandleReplace);
