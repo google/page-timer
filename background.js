@@ -20,24 +20,25 @@ chrome.browserAction.setBadgeText({ 'text': '?'});
 chrome.browserAction.setBadgeBackgroundColor({ 'color': "#777" });
 
 function Update(tabId, url) {
-  if (url) {
-    var now = new Date();
-    if (!(tabId in History)) {
-      History[tabId] = [];
-    }
-    History[tabId].unshift([now, url]);
-
-    var history_limit = parseInt(localStorage["history_size"]);
-    if (! history_limit) {
-      history_limit = 23;
-    }
-    while (History[tabId].length > history_limit) {
-      History[tabId].pop();
-    }
-
-    chrome.browserAction.setBadgeText({ 'tabId': tabId, 'text': '0m'});
-    chrome.browserAction.setPopup({ 'tabId': tabId, 'popup': "popup.html#tabId=" + tabId});
+  if (!url) {
+    return;
   }
+  var now = new Date();
+  if (!(tabId in History)) {
+    History[tabId] = [];
+  }
+  History[tabId].unshift([now, url]);
+
+  var history_limit = parseInt(localStorage["history_size"]);
+  if (! history_limit) {
+    history_limit = 23;
+  }
+  while (History[tabId].length > history_limit) {
+    History[tabId].pop();
+  }
+
+  chrome.browserAction.setBadgeText({ 'tabId': tabId, 'text': '0m'});
+  chrome.browserAction.setPopup({ 'tabId': tabId, 'popup': "popup.html#tabId=" + tabId});
 }
 
 function HandleUpdate(tabId, changeInfo, tab) {
