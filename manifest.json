@@ -3,7 +3,7 @@
 
   "name": "Page Timer",
   "description": "How long have I been on this page?",
-  "version": "1.5",
+  "version": "1.6",
   "author": "sworley@google.com",
 
   "permissions": [
