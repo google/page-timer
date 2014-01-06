@@ -42,6 +42,7 @@ if (match) {
     var a = document.createElement("a");
     a.textContent = hist[i][1];
     a.setAttribute("href", hist[i][1]);
+    a.setAttribute("target", "_blank");
     r.insertCell(-1).appendChild(a);
   }
   document.body.appendChild(table);
