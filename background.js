@@ -51,6 +51,9 @@ function HandleRemove(tabId, removeInfo) {
 
 function HandleReplace(addedTabId, removedTabId) {
   delete History[removedTabId];
+  chrome.tabs.get(addedTabId, function(tab) {
+    Update(addedTabId, tab.url);
+  });
 }
 
 
