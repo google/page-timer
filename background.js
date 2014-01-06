@@ -17,7 +17,7 @@
 var History = {};
 
 chrome.browserAction.setBadgeText({ 'text': '?'});
-chrome.browserAction.setBadgeBackgroundColor({ 'color': "#666" });
+chrome.browserAction.setBadgeBackgroundColor({ 'color': "#777" });
 
 function HandleChange(tabId, changeInfo, tab) {
   if ("url" in changeInfo) {
