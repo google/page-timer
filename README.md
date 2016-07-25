@@ -9,3 +9,5 @@ All data is kept locally in ram; no data is sent over the network or saved to
 disk.
 
 Or [get it from the Chrome Web Store](https://chrome.google.com/webstore/detail/page-timer/enljfpkeopdppbphgadibdpodgjhmabm).
+
+This is not an official Google product.
