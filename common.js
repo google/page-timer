@@ -17,6 +17,9 @@
 "use strict";
 
 function FormatDuration(d) {
+  if (d < 0) {
+    return "?";
+  }
   var minutes = Math.floor(d / (60 * 1000));
   var description;
   if (minutes < 60) {

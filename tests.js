@@ -19,6 +19,7 @@
 var common = require('./common.js');
 var assert = require('assert');
 
+assert.strictEqual(common.FormatDuration(-1), "?");
 assert.strictEqual(common.FormatDuration(0), "0m");
 assert.strictEqual(common.FormatDuration(59999), "0m");
 assert.strictEqual(common.FormatDuration(60000), "1m");
