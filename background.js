@@ -40,7 +40,7 @@ function Update(t, tabId, url) {
     History[tabId].pop();
   }
 
-  chrome.browserAction.setBadgeText({ 'tabId': tabId, 'text': '0m'});
+  chrome.browserAction.setBadgeText({ 'tabId': tabId, 'text': '0:00'});
   chrome.browserAction.setPopup({ 'tabId': tabId, 'popup': "popup.html#tabId=" + tabId});
 }
 
@@ -69,7 +69,7 @@ function UpdateBadges() {
   }
 }
 
-setInterval(UpdateBadges, 3000);
+setInterval(UpdateBadges, 1000);
 
 chrome.tabs.onUpdated.addListener(HandleUpdate);
 chrome.tabs.onRemoved.addListener(HandleRemove);

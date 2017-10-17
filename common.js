@@ -20,19 +20,11 @@ function FormatDuration(d) {
   if (d < 0) {
     return "?";
   }
-  var minutes = Math.floor(d / (60 * 1000));
-  var description;
-  if (minutes < 60) {
-    description = minutes + "m";
-  } else {
-    var hours = Math.floor(minutes / 60);
-    var display_minutes = minutes % 60;
-    if (display_minutes < 10) {
-      display_minutes = "0" + display_minutes;
-    }
-    description = hours + ":" + display_minutes;
+  var divisor = d < 3600000 ? [60000, 1000] : [3600000, 60000];
+  function pad(x) {
+    return x < 10 ? "0" + x : x;
   }
-  return description;
+  return Math.floor(d / divisor[0]) + ":" + pad(Math.floor((d % divisor[0]) / divisor[1]));
 }
 
 exports.FormatDuration = FormatDuration;
