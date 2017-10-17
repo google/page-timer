@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+"use strict";
+
 function FormatDuration(d) {
   var minutes = Math.floor(d / (60 * 1000));
   var description;
