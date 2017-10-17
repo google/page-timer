@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Google Inc. All rights reserved.
+ * Copyright 2017 Google Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,20 +16,15 @@
 
 "use strict";
 
-function FormatDuration(d) {
-  var minutes = Math.floor(d / (60 * 1000));
-  var description;
-  if (minutes < 60) {
-    description = minutes + "m";
-  } else {
-    var hours = Math.floor(minutes / 60);
-    var display_minutes = minutes % 60;
-    if (display_minutes < 10) {
-      display_minutes = "0" + display_minutes;
-    }
-    description = hours + ":" + display_minutes;
-  }
-  return description;
-}
+var common = require('./common.js');
+var assert = require('assert');
 
-exports.FormatDuration = FormatDuration;
+assert.strictEqual(common.FormatDuration(0), "0m");
+assert.strictEqual(common.FormatDuration(59999), "0m");
+assert.strictEqual(common.FormatDuration(60000), "1m");
+assert.strictEqual(common.FormatDuration(3599999), "59m");
+assert.strictEqual(common.FormatDuration(3600000), "1:00");
+assert.strictEqual(common.FormatDuration(7199999), "1:59");
+assert.strictEqual(common.FormatDuration(7200000), "2:00");
+
+console.log("All tests passed");
