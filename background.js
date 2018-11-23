@@ -64,8 +64,38 @@ function HandleReplace(addedTabId, removedTabId) {
 function UpdateBadges() {
   var now = new Date();
   for (tabId in History) {
+    var background = chrome.extension.getBackgroundPage();
     var description = FormatDuration(now - History[tabId][0][0]);
     chrome.browserAction.setBadgeText({ 'tabId': parseInt(tabId), 'text': description});
+
+    var timeDiff = now - History[tabId][0][0];
+    var timeDiffSeconds = Math.floor(timeDiff / 1000);
+
+    var minutes = parseInt(description.split(':')[0]);
+    var seconds = parseInt(description.split(':')[1]);
+    var notify = Boolean(localStorage['notify']);
+    var notify_max = parseInt(localStorage['notify_max']);
+    notify_max = isNaN(notify_max) ? 5 : notify_max;
+    
+    var blacklist = localStorage['notify_blacklist'] ? localStorage['notify_blacklist'].split(',') : [];
+    var currentUrl = (History[tabId][0][1]);
+    var isBlacklisted = false;
+
+    var implicitBlacklist = ['chrome://', 'chrome-extension://'];
+
+    implicitBlacklistMatches = implicitBlacklist.filter(item => currentUrl.includes(item));
+    blacklistMatches = blacklist.filter(item => currentUrl.includes(item));
+    isBlacklisted = implicitBlacklistMatches.length > 0 || blacklistMatches.length > 0;
+
+    // background.console.log({ isBlacklisted, blacklistMatches, currentUrl, minutes, seconds, timeDiffSeconds });
+
+    if (notify && !isBlacklisted && minutes > 0 && seconds === 0 && minutes <= notify_max && timeDiffSeconds < 3600) {
+      var notification = new Audio('ding.mp3');
+      for (var i = 1; i <= minutes; i++) {
+        var wait = i * 500;
+        setTimeout(function () { notification.play() }, wait);
+      }
+    }
   }
 }
 
