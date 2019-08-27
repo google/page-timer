@@ -73,7 +73,7 @@ function UpdateBadges() {
 
     var minutes = parseInt(description.split(':')[0]);
     var seconds = parseInt(description.split(':')[1]);
-    var notify = Boolean(localStorage['notify']);
+    var notify = localStorage['notify'] == 'true';
     var notify_max = parseInt(localStorage['notify_max']);
     notify_max = isNaN(notify_max) ? 5 : notify_max;
     
