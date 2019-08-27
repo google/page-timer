@@ -18,13 +18,29 @@ limitations under the License.
 <head><title>Page Timer Options</title></head>
 
 <body>
+  <p>
+    History size:
+    <input type="text" id="history_size" value="23" />
+  </p>
 
-History size:
-<input type="text" id="history_size" value="23"></input>
+  <p>
+    Audible Notification Enabled?
+    <input type="checkbox" id="notify" />
+    <p>Audible notification will play once per minute elapsed (eg: at 5 minutes, there will be 5 dings) up to a maximum of:</p>
+    <input type="number" id="notify_max" value="5" /> minutes
+  </p>
 
-<br>
-<div id="status"></div>
-<button id="save">Save</button>
+  <p>
+    Notification Blacklist <small><em>(Do not notify on these domains; one per line)</em></small>
+    <br>
+    <textarea id="notify_blacklist" placeholder="google.com" rows="10"></textarea>
+  </p>
+
+  <br>
+  <p>
+  <div id="status"></div>
+  <button id="save">Save</button>
+  </p>
 </body>
 
 <script src="options.js"></script>
